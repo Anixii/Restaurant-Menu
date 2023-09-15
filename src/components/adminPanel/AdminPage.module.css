@@ -63,4 +63,55 @@
     align-items: center; 
     margin: 1.2% 0; 
     font-size: 18px;
+}  
+.form__btn{ 
+    margin-top: 5.1vh;
+}
+.form__btn button{ 
+    width: 100%; 
+    font-size: 21px; 
+    border: none; 
+    border-radius: 12px; 
+
+    color: rgb(228, 228, 228); 
+    background-color:  rgb(97, 120, 235); ;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 1.0vh 0;
+}  
+.field{ 
+    margin: 1vh 0;
+}
+ .admin__form_item{ 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+ }
+.admin__form_item input { 
+    width: 92%; 
+    border: 1px solid rgb(149, 145, 145); 
+    outline: none;  
+    font-size: 17px; 
+    padding: 0.8vh 0 .9vh 9px;
+    border-radius: 12px; 
+}   
+.admin__form_item button { 
+    color: white; 
+    border: none;
+    background-color: rgb(236, 45, 45);
+} 
+.admin__add_field{   
+    color: white; 
+    padding: 0.7vh 0;
+    font-size: 17px; 
+    border-radius: 12px;
+    background-color:  rgb(97, 120, 235); 
+    width: 100%;
+    border: none;
+
+}
+.error__message{ 
+    font-size: 15px;
+    color: red;
+
 }

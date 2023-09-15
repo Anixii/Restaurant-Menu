@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import s from './AdminPage.module.css'
 import { Controller, useForm, useFieldArray } from 'react-hook-form'
 import { Button, Upload } from 'antd' 
-import { InboxOutlined } from '@ant-design/icons';
+import { DeleteOutlined, InboxOutlined } from '@ant-design/icons';
 const AdminPage = () => {
     const [photoFiles, setPhotoFiles] = useState([])
     const { handleSubmit, formState: { errors }, control, register,} = useForm()
@@ -74,54 +74,21 @@ const AdminPage = () => {
                     </Upload.Dragger>
                             </div>
                         </div> 
-                        
+
                         <div className={s.form__item}>
                             <div className={s.form__title}>Пиктограммы</div>
                             <div className={s.form__radio}>
                                 <label className={s.form__radio_label}>
-                                    <Controller
-                                        name="pictogram.new"
-                                        control={control}
-                                        defaultValue={false}
-                                        render={({ field }) => (
-                                            <input
-                                                type="radio"
-                                                {...field}
-                                                id='new'
-                                                value={'new'}
-                                            />
-                                        )}
-                                    />
+                                    <input type="checkbox" name="pictogram" {...register('pictogram.new')} />
+
                                     Новинка</label>
                                 <label className={s.form__radio_label}>
-                                    <Controller
-                                        name="pictogram.sale"
-                                        control={control}
-                                        defaultValue={false}
-                                        render={({ field }) => (
-                                            <input
-                                                type="radio"
-                                                {...field}
-                                                id='sale'
-                                                value={'sale'}
-                                            />
-                                        )}
-                                    />
+
+                                    <input type="checkbox" name="pictogram" {...register('pictogram.sale')} />
                                     Скидка</label>
                                 <label className={s.form__radio_label}>
-                                    <Controller
-                                        name="pictogram.hot"
-                                        control={control}
-                                        defaultValue={false}
-                                        render={({ field }) => (
-                                            <input
-                                                type="radio"
-                                                {...field}
-                                                id='hot'
-                                                value={'hot'}
-                                            />
-                                        )}
-                                    />
+                                    <input type="checkbox" name="pictogram" {...register('pictogram.hot')} />
+
                                     Горячо</label>
                             </div>
                         </div>
@@ -146,7 +113,7 @@ const AdminPage = () => {
                                         }}
                                         render={({ field }) => <input className={s.field__input} {...field} />}
                                     />
-                                    <Button className={s.form__delete} onClick={() => remove(index)}>del</Button>
+                                    <Button icon={<DeleteOutlined/>} className={s.form__delete} onClick={() => remove(index)}></Button>
                                 </div>
                                 {errors?.ads?.[index] && <span className={s.error__message}>{errors?.ads?.[index]?.message}</span>}
                             </div>
