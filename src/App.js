@@ -1,10 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import AdminPage from './components/adminPanel/AdminPage';
+import AdminForm from './components/adminPanel/AdminForm';
 import { Upload } from 'antd'; 
 import { storage } from './firebaseConfig'; 
 import { ref, uploadBytes, } from 'firebase/storage';
-import { useState } from 'react';
+import { useState } from 'react'; 
+import WithAdminAuth from './hoc/WithAdminAuth';
+import AdminPage from './components/adminPanel/AdminPage';
 function App() {  
   const [data,setData] = useState([])
   const onUploadChange = ({fileList}) =>{  
@@ -41,7 +43,8 @@ console.log(error);
     <button onClick={onHandleSave}>Save</button> 
     {/* <input multiple onChange={onUploadChange} type='file'/> */}
       <Routes> 
-        <Route path='/admin' element={<AdminPage/>}/>
+        <Route path='/admin' element={<AdminForm/>}/>
+        <Route path='/add' element={<WithAdminAuth> <AdminPage/></WithAdminAuth>}/>
       </Routes>
     </>
   );

@@ -8,10 +8,14 @@ export const signUserInAccount = createAsyncThunk(
     'user/sign', 
     async ({email,password},{dispatch}) =>{ 
         try{ 
-            const {user} = await signInWithEmailAndPassword(auth, email,password) 
-            dispatch(setUser({email:user.email}))
-        }catch(error){ 
+            const {user} = await signInWithEmailAndPassword(auth, email,password)  
+            console.log(user);
+            dispatch(setUser({email:user.email})) 
+            return true
+        }catch(error){  
+            
             console.log(error);
+            return 'error'
         }
     }
 )
