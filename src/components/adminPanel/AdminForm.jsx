@@ -2,18 +2,20 @@ import React, {useState} from 'react'
 import { useForm } from 'react-hook-form'
 import s from './AdminForm.module.css'
 import { useDispatch } from 'react-redux'
-import { signUserInAccount } from '../../store/userSlice'
+import { getSelectOptions, signUserInAccount } from '../../store/userSlice'
 import { Spin } from 'antd'
 import { useNavigate } from 'react-router-dom'
 const AdminPage = () => {
   const {register,formState:{errors}, handleSubmit} = useForm()
   const dispatch = useDispatch() 
   const [isFetch, setFetch] = useState(false)  
-  const nav = useNavigate()
+  const nav = useNavigate() 
+
   const onSubmit = async(e) =>{   
     setFetch(true)
     const {email,password} = e
-    const res = await dispatch(signUserInAccount({email,password}))
+    const res = await dispatch(signUserInAccount({email,password})) 
+    await dispatch(getSelectOptions())
     setFetch(false)  
     if(res.payload !== 'error'){ 
       return nav('/add')

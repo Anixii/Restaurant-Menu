@@ -7,6 +7,9 @@ import { ref, uploadBytes, } from 'firebase/storage';
 import { useState } from 'react'; 
 import WithAdminAuth from './hoc/WithAdminAuth';
 import AdminPage from './components/adminPanel/AdminPage';
+import MainPage from './components/MainPage';
+import MenuPage from './components/menuPage/MenuPage';
+import DefineMenu from './components/menuPage/defineMenuList/DefineMenu';
 function App() {  
   const [data,setData] = useState([])
   const onUploadChange = ({fileList}) =>{  
@@ -32,7 +35,7 @@ console.log(error);
   }
   return (
     <>   
-    hello  
+    {/* hello  
     <Upload
       onChange={(e) => onUploadChange(e)}
       listType="picture" 
@@ -40,9 +43,12 @@ console.log(error);
       maxCount={3}
       multiple
     >Upload</Upload> 
-    <button onClick={onHandleSave}>Save</button> 
+    <button onClick={onHandleSave}>Save</button>  */}
     {/* <input multiple onChange={onUploadChange} type='file'/> */}
-      <Routes> 
+      <Routes>  
+        <Route path='/' element={<MainPage/>}/> 
+        <Route path='/menu/' element={<MenuPage/>}/>
+        <Route path='/menu/:id' element={<DefineMenu/>}/>
         <Route path='/admin' element={<AdminForm/>}/>
         <Route path='/add' element={<WithAdminAuth> <AdminPage/></WithAdminAuth>}/>
       </Routes>

@@ -8,23 +8,27 @@ const menuCollection = collection(db, 'menu')
 
 const initialState = { 
     food: [], 
-    defineDish: null,
+    defineDish: null, 
+    defineDishRecomendation: []
 } 
 export const createNewDishes = createAsyncThunk( 
     'menu/createDish', 
-    async({fileList,title,price,subtitle,description,pictogram = {}, adds = [],recomendation = []},{dispatch}) =>{ 
+    async({file,title,price,subtitle,description,pictogram, adds = [],recomendation = [], isRecomended = false},{dispatch}) =>{ 
         try{  
             const randomId = generateRandomString()
-            await dispatch(uploadDishPhotos({fileList, id:randomId}))
-            setDoc(doc(menuCollection, randomId), {
+            await dispatch(uploadDishPhotos({file, id:randomId}))
+            await setDoc(doc(menuCollection, randomId), { 
+                id: randomId,
                 title, 
-                price, 
+                price: +price, 
                 subtitle, 
                 description, 
                 pictogram,
                 adds, 
+                isRecomended,
                 recomendation,
-            }); 
+            }) 
+            return true
         }catch(error){ 
             console.log(error);
         }
@@ -63,34 +67,69 @@ export const getAllDishes = createAsyncThunk(
         }
     }
 ) 
+const getPhotoByDishID = createAsyncThunk(
+    'menu/getPhotoByDishID', 
+    async({id}) =>{ 
+        try{ 
+            const query = doc(menuCollection, id) 
+            const querySnapshot = await getDoc(query)  
+            const collectionRef = ref(storage, querySnapshot.data().id)
+            const files = await listAll(collectionRef)
+            const fileURLs = await Promise.all(
+                files.items.map(async (fileRef) => {
+                    const downloadURL = await getDownloadURL(fileRef)
+                    return downloadURL
+                  })
+                ) 
+            const data = {...querySnapshot.data(), fileURLs}
+            return data 
+        }catch(error){ 
 
+        }
+    }
+ )
 export const getDefineDish = createAsyncThunk( 
     'menu/getDefineDish', 
     async ({id},{dispatch}) =>{  
         try {
             const query = doc(menuCollection, id) 
-            const querySnapshot = await getDoc(query) 
-    
-            dispatch(setDefineDish({dish: querySnapshot.data()}))    
+            const querySnapshot = await getDoc(query)  
+            const collectionRef = ref(storage, querySnapshot.data().id)
+            const files = await listAll(collectionRef)
+            const fileURLs = await Promise.all(
+                files.items.map(async (fileRef) => {
+                    const downloadURL = await getDownloadURL(fileRef)
+                    return downloadURL
+                  })
+                ) 
+            const data = {...querySnapshot.data(), fileURLs}
+            dispatch(setDefineDish({dish: data}))    
+            const recomendation = data.recomendation.map((item) => {
+                return dispatch(getPhotoByDishID({ id: item }))
+              })
+              await Promise.all(recomendation); 
+              dispatch(setDefineDishRecomendation({dish: recomendation}))
         } catch (error) {
             console.log(error);
         }
 
     }
 )
-
 export const uploadDishPhotos = createAsyncThunk(
     'menu/uploadDishPhotos',  
-    async ({fileList, id}) =>{ 
+    async ({file, id}) =>{ 
         try{ 
-            const photomouseRef = ref(storage, id)
+            // const photomouseRef = ref(storage, id)
             
-            const promises = fileList.map(async (file) => {
-                const fileRef = ref(photomouseRef, file.name)
-                await uploadBytes(fileRef, file.originFileObj)
-            });
+            // const promises = fileList.map(async (file) => {
+            //     const fileRef = ref(photomouseRef, file.name)
+            //     await uploadBytes(fileRef, file.originFileObj)
+            // });
             
-            await Promise.all(promises)
+            // await Promise.all(promises)
+            const photomouseRef = ref(storage, id);
+            const fileRef = ref(photomouseRef, file.name);
+            await uploadBytes(fileRef, file.originFileObj);
         }catch(error){ 
             console.log(error);
         }
@@ -106,8 +145,11 @@ const menuSlice = createSlice({
         }, 
         setDefineDish(state,action){ 
             state.defineDish = action.payload.dish
+        }, 
+        setDefineDishRecomendation(state,action){ 
+            state.defineDishRecomendation = action.payload.dish
         }
     }
 }) 
-export const {setDishes,setDefineDish} = menuSlice.actions 
+export const {setDishes,setDefineDish,setDefineDishRecomendation} = menuSlice.actions 
 export default menuSlice.reducer

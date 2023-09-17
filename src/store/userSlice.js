@@ -1,8 +1,12 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { auth, db } from "../firebaseConfig";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore"; 
+const menuCollection = collection(db, 'menu') 
+
 const initialState = { 
-    email: null
+    email: null, 
+    recomendationList: []
 } 
 export const signUserInAccount = createAsyncThunk( 
     'user/sign', 
@@ -18,6 +22,21 @@ export const signUserInAccount = createAsyncThunk(
             return 'error'
         }
     }
+) 
+export const getSelectOptions = createAsyncThunk( 
+    'user/getSelectOptions', 
+    async (_,{dispatch}) =>{ 
+        try { 
+            const querySnapshot = await getDocs(menuCollection)    
+            
+            if(!querySnapshot.empty){ 
+                const productsData = querySnapshot.docs.map((doc) => ({ id: doc.id, title: doc.data().title })); 
+                dispatch(setRecomendationList({dish: productsData}))
+            } 
+        } catch (error) {
+            console.log(error);
+        }
+    }
 )
 const userSlice = createSlice({ 
     name: 'user', 
@@ -25,8 +44,11 @@ const userSlice = createSlice({
     reducers:{ 
         setUser(state,action) { 
             state.email = action.payload.email
+        }, 
+        setRecomendationList(state,action) { 
+            state.recomendationList = action.payload.dish
         }
     }
 }) 
-export const {setUser} = userSlice.actions 
+export const {setUser,setRecomendationList} = userSlice.actions 
 export default userSlice.reducer
