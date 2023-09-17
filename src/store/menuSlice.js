@@ -9,7 +9,8 @@ const menuCollection = collection(db, 'menu')
 const initialState = { 
     food: [], 
     defineDish: null, 
-    defineDishRecomendation: []
+    defineDishRecomendation: [], 
+    currentCategory: 'Все',
 } 
 export const createNewDishes = createAsyncThunk( 
     'menu/createDish', 
@@ -148,8 +149,11 @@ const menuSlice = createSlice({
         }, 
         setDefineDishRecomendation(state,action){ 
             state.defineDishRecomendation = action.payload.dish
+        }, 
+        setCategory(state,action) {
+            state.currentCategory = action.payload.category
         }
     }
 }) 
-export const {setDishes,setDefineDish,setDefineDishRecomendation} = menuSlice.actions 
+export const {setDishes,setDefineDish,setDefineDishRecomendation,setCategory} = menuSlice.actions 
 export default menuSlice.reducer

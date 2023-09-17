@@ -17,4 +17,11 @@ export function generateRandomString() {
     const randomLetters = shuffleString(letters);
     const result = randomLetters + randomNumber.toString();
     return result;
+  } 
+  export function recomendationFilter(arr) { 
+    return arr.filter((item) => item.isRecomended)
+  } 
+
+  export function dishesFilter(arr, title) { 
+    return arr.filter((item) => item.pictogram === title)
   }

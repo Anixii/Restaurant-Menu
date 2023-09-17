@@ -90,43 +90,43 @@ const AdminPage = () => {
                             <div className={s.form__title}>Пиктограммы</div>
                             <div className={s.form__radio}>
                                 <label className={s.form__radio_label}>
-                                    <input type="radio" value={'new'} id='new' name="new" {...register('pictogram',{ 
+                                    <input type="radio" value={'Новинка'} id='Новинка' name="Новинка" {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
                                     })} />
 
                                     Новинка</label>
                                 <label className={s.form__radio_label}>
 
-                                    <input type="radio" name="sale" value={'sale'} id='sale' {...register('pictogram',{ 
+                                    <input type="radio" name="Скидка" value={'Скидка'} id='Скидка' {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
                                     })} />
                                     Скидка</label>
                                 <label className={s.form__radio_label}>
-                                    <input type="radio" value={'hot'} id='hot' name="hot" {...register('pictogram',{ 
+                                    <input type="radio" value={'Горячее'} id='Горячее' name="Горячее" {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
                                     })} />
 
-                                    Горячо</label>
+                                    Горячее</label>
                                 <label className={s.form__radio_label}>
-                                    <input type="radio" value={'cofe'} id='cofe' name="cofe" {...register('pictogram',{ 
+                                    <input type="radio" value={'Кофе'} id='Кофе' name="Кофе" {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
                                     })} />
                                     Кофе 
                                     </label>
                                 <label className={s.form__radio_label}>
-                                    <input type="radio" value={'bake'} id='bake' name="bake" {...register('pictogram',{ 
+                                    <input type="radio" value={'Выпечка'} id='Выпечка' name="Выпечка" {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
                                     })} />
                                     Выпечка
                                 </label>
                                 <label className={s.form__radio_label}>
-                                    <input type="radio" value={'salat'} id='salat' name="salat" {...register('pictogram',{ 
+                                    <input type="radio" value={'Салаты'} id='Салаты' name="Салаты" {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
                                     })} />
                                     Cалаты
                                 </label>
                                 <label className={s.form__radio_label}>
-                                    <input type="radio" value={'child'} id='child' name="child" {...register('pictogram',{ 
+                                    <input type="radio" value={'Для детей'} id='Для детей' name="Для детей" {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
                                     })} />
                                     Для детей
