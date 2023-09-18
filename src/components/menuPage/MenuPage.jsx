@@ -35,44 +35,61 @@ const MenuPage = () => {
 
     <Category/>  
     <div className={s.menu__item}> 
-      <div className={s.menu__title}>Рекомендации</div> 
+      <div className={s.menu__title}>Рекомендуем попробовать</div> 
+      <div className={s.menu__list}> 
       {recomendation.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    </div>
+      </div> 
+    </div> 
+
     {(currentCategory === 'Все' || currentCategory === 'Горячее') &&
     <div className={s.menu__item}>  
-    <div className={s.menu__title}>Горячее</div>
+    <div className={s.menu__title}>Горячее</div> 
+    <div className={s.menu__list}> 
     {hot.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    </div>
     </div>}
 
     {(currentCategory === 'Все' || currentCategory === 'Кофе') &&
     <div className={s.menu__item}>
-    <div className={s.menu__title}>Кофе</div>
+    <div className={s.menu__title}>Кофе</div> 
+    <div className={s.menu__list}> 
     {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    </div>}
+    </div>
+    </div>
+    }
 
     {(currentCategory === 'Все' || currentCategory === 'Выпечка') &&
-    <div className={s.menu__item}> 
+    <div className={s.menu__item}>  
     <div className={s.menu__title}>Выпечка</div>
+    <div className={s.menu__list}> 
     {bake.map((item,index) => <CofeCategories key={index} item={item}/>) } 
+    </div>
     </div>} 
 
 
     {(currentCategory === 'Все' || currentCategory === 'Салаты') &&
     <div className={s.menu__item}> 
     <div className={s.menu__title}>Салаты</div>
+    <div className={s.menu__list}> 
     {salat.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    </div>     }
+    </div>
+    </div>  
+    }
 
     {(currentCategory === 'Все' || currentCategory === 'Для детей') &&
     <div className={s.menu__item}> 
-    <div className={s.menu__title}>Для детей</div>
+    <div className={s.menu__title}>Для детей</div> 
+    <div className={s.menu__list}> 
     {child.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    </div> }
+    </div> 
+    </div>}
 
     {(currentCategory === 'Все' || currentCategory === 'Стейки') && <div className={s.menu__item}> 
     <div className={s.menu__title}>Стейки</div>
+    <div className={s.menu__list}> 
     {steak.map((item,index) => <CofeCategories key={index} item={item}/>)}
     </div>  
+    </div>
     }
     </div>
 
