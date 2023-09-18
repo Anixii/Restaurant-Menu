@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import {useParams} from 'react-router-dom' 
 import {useDispatch, useSelector} from 'react-redux'
-import { getDefineDish, setDefineDish, setDefineDishRecomendation } from '../../../store/menuSlice'
+import { getDefineDish, setDefineDish, setDefineDishRecomendation } from '../../../store/menuSlice' 
+import s from './DefineMenu.module.css'
 const DefineMenu = () => {
   const dispatch = useDispatch()
   const params = useParams() 
@@ -22,11 +23,15 @@ const DefineMenu = () => {
     } 
 
   },[dispatch,food,params])
-
+  console.log(defineDish);
   return (
     <> 
     
-    
+    <div> 
+      {defineDish?.title} 
+      {defineDish?.subtitle} 
+      {defineDish?.price}
+    </div>
     
     </>
   )
