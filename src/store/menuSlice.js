@@ -113,9 +113,9 @@ export const getDefineDish = createAsyncThunk(
         } catch (error) {
             console.log(error);
         }
-
     }
-)
+) 
+
 export const uploadDishPhotos = createAsyncThunk(
     'menu/uploadDishPhotos',  
     async ({file, id}) =>{ 
