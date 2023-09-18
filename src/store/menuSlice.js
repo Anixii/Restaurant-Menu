@@ -103,13 +103,17 @@ export const getDefineDish = createAsyncThunk(
                     return downloadURL
                   })
                 ) 
-            const data = {...querySnapshot.data(), fileURLs}
-            dispatch(setDefineDish({dish: data}))    
-            const recomendation = data.recomendation.map((item) => {
-                return dispatch(getPhotoByDishID({ id: item }))
-              })
-              await Promise.all(recomendation); 
-              dispatch(setDefineDishRecomendation({dish: recomendation}))
+            const data = {...querySnapshot.data(), fileURLs} 
+
+            dispatch(setDefineDish({dish: data}))      
+            
+            if(data.recomendation.length !== 0){ 
+                const recomendation = data.recomendation.map((item) => {
+                return dispatch(getPhotoByDishID({ id: item.value }))
+                })
+            await Promise.all(recomendation); 
+                  dispatch(setDefineDishRecomendation({dish: recomendation}))
+            }
         } catch (error) {
             console.log(error);
         }

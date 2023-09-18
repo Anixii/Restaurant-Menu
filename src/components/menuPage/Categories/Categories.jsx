@@ -1,10 +1,14 @@
 import React from 'react'
 import s from './Categories.module.css'
-const CofeCategories = ({item}) => {
-  console.log(item); 
+import { Navigate, useNavigate } from 'react-router-dom'
+const CofeCategories = ({item}) => { 
+  const nav = useNavigate()
+  const onHandleClick = (id) => {  
+    nav(`/menu/${id}`)
+  }
   return (
     <>
-      <div className={s.card}> 
+      <div className={s.card} onClick={() => onHandleClick(item.id)}> 
         <div className={s.card__container}> 
           <div className={s.card__img}><img src={item?.photoURLs[0]} alt="" /></div>
           <div className={s.card__tilte}>{item?.title}</div>
