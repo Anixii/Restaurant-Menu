@@ -12,10 +12,12 @@ const CofeCategories = ({item}) => {
         <div className={s.card__container}> 
           <div  className={s.card__img}>
             <img src={item?.photoURLs[0]} alt="" />
-          </div>
+          </div>  
+          <div className={s.card__text}> 
           <div className={s.card__tilte}>{item?.title}</div>
           <div className={s.card__subtitle}>{item?.subtitle}</div>
           <div className={s.card__price}>{item?.price} с</div> 
+          </div>
         </div>
       </div>
     </>

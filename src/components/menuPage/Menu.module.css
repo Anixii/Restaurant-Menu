@@ -6,12 +6,26 @@
     color: black; 
     text-decoration: none;
 } 
-.menu__list{ 
+.main__container { 
+    padding: 0 2.2%;
+}  
+.menu__item{ 
+    margin: 3.8% 0;  
+    display: flex; 
+    justify-content: center;
+    align-items: flex-start; 
+    flex-direction: column;
+
+}
+.menu__list{  
+    width: 100%;
     display: flex;  
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
+    gap: 1.7rem;
 } 
 
-.menu__title{ 
+.menu__title{  
+    margin-bottom: 1.5%;
     color: #000;
     font-family: 'Nunito', sans-serif;
     font-size: 20px;

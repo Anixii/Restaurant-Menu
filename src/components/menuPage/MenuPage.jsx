@@ -31,17 +31,17 @@ const MenuPage = () => {
   console.log(currentCategory);
   return ( 
     <>
-    <div> 
-
+    <div className={s.main__container}>  
     <Category/>  
     <div className={s.menu__item}> 
       <div className={s.menu__title}>Рекомендуем попробовать</div> 
       <div className={s.menu__list}> 
       {recomendation.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+       
       </div> 
     </div> 
 
-    {(currentCategory === 'Все' || currentCategory === 'Горячее') &&
+    {(currentCategory === 'Все' || currentCategory === 'Горячее') && hot.length !== 0 &&
     <div className={s.menu__item}>  
     <div className={s.menu__title}>Горячее</div> 
     <div className={s.menu__list}> 
@@ -49,16 +49,25 @@ const MenuPage = () => {
     </div>
     </div>}
 
-    {(currentCategory === 'Все' || currentCategory === 'Кофе') &&
+    {(currentCategory === 'Все' || currentCategory === 'Кофе')&& cofe.length !== 0  && 
     <div className={s.menu__item}>
     <div className={s.menu__title}>Кофе</div> 
     <div className={s.menu__list}> 
     {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    
     </div>
     </div>
     }
 
-    {(currentCategory === 'Все' || currentCategory === 'Выпечка') &&
+    {(currentCategory === 'Все' || currentCategory === 'Выпечка')&& bake.length !== 0   &&
     <div className={s.menu__item}>  
     <div className={s.menu__title}>Выпечка</div>
     <div className={s.menu__list}> 
@@ -67,7 +76,7 @@ const MenuPage = () => {
     </div>} 
 
 
-    {(currentCategory === 'Все' || currentCategory === 'Салаты') &&
+    {(currentCategory === 'Все' || currentCategory === 'Салаты')&& salat.length !== 0  &&
     <div className={s.menu__item}> 
     <div className={s.menu__title}>Салаты</div>
     <div className={s.menu__list}> 
@@ -76,7 +85,7 @@ const MenuPage = () => {
     </div>  
     }
 
-    {(currentCategory === 'Все' || currentCategory === 'Для детей') &&
+    {(currentCategory === 'Все' || currentCategory === 'Для детей')&& child.length !== 0  &&
     <div className={s.menu__item}> 
     <div className={s.menu__title}>Для детей</div> 
     <div className={s.menu__list}> 
@@ -84,7 +93,7 @@ const MenuPage = () => {
     </div> 
     </div>}
 
-    {(currentCategory === 'Все' || currentCategory === 'Стейки') && <div className={s.menu__item}> 
+    {(currentCategory === 'Все' || currentCategory === 'Стейки')&& steak.length !== 0  && <div className={s.menu__item}> 
     <div className={s.menu__title}>Стейки</div>
     <div className={s.menu__list}> 
     {steak.map((item,index) => <CofeCategories key={index} item={item}/>)}

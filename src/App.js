@@ -1,10 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import AdminForm from './components/adminPanel/AdminForm';
-import { Upload } from 'antd'; 
-import { storage } from './firebaseConfig'; 
-import { ref, uploadBytes, } from 'firebase/storage';
-import { useState } from 'react'; 
+import AdminForm from './components/adminPanel/AdminForm'; 
 import WithAdminAuth from './hoc/WithAdminAuth';
 import AdminPage from './components/adminPanel/AdminPage';
 import MainPage from './components/MainPage';

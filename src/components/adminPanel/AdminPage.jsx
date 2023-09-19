@@ -50,7 +50,11 @@ const AdminPage = () => {
                         <div className={s.form__item}>
                             <div className={s.form__title}>Краткое описание</div>
                             <div className={s.form__textarea}><textarea {...register('subtitle', {
-                                required: 'Это поле обязательное!'
+                                required: 'Это поле обязательное!', 
+                                maxLength: { 
+                                    message: 'Максимальное кол-во символов: 85!', 
+                                    value: 85
+                                }
                             })} type="text" /></div>
                             {errors.subtitle && <span className={s.error__message}>{errors.subtitle.message}</span>}
                         </div>
