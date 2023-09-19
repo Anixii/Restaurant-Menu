@@ -1,43 +1,67 @@
 import React, { useEffect } from 'react'
-import {useParams} from 'react-router-dom' 
-import {useDispatch, useSelector} from 'react-redux'
-import { getDefineDish, setDefineDish, setDefineDishRecomendation } from '../../../store/menuSlice' 
-import s from './DefineMenu.module.css'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDefineDish, setDefineDish, setDefineDishRecomendation } from '../../../store/menuSlice'
+import s from './DefineMenu.module.css' 
+import a from '../../../assets/img/arrow.svg'
+import CofeCategories from '../Categories/Categories'
+import Categories from './RecomendCategory/RecCategory'
 const DefineMenu = () => {
   const dispatch = useDispatch()
-  const params = useParams() 
-  const {food,defineDish,defineDishRecomendation} = useSelector(state => state.menu)
-  useEffect(() =>{ 
-    if(food.length !== 0){ 
-      const dishes = food.filter((item)  => item.id === params.id) 
-      dispatch(setDefineDish({dish: dishes[0]}))  
-      if(dishes[0].recomendation.length !== 0){  
-        const recommendedIds = dishes[0].recomendation.map(recommendation => recommendation.value); 
+  const params = useParams()
+  console.log('reee');
+  const { food, defineDish, defineDishRecomendation } = useSelector(state => state.menu)
+  useEffect(() => {
+    if (food.length !== 0) {
+      const dishes = food.filter((item) => item.id === params.id)
+      dispatch(setDefineDish({ dish: dishes[0] }))
+      if (dishes[0].recomendation.length === 0) {
+        dispatch(setDefineDishRecomendation({ dish: [] }))
+      }else{ 
+
+        const recommendedIds = dishes[0].recomendation.map(recommendation => recommendation.value);
         console.log(recommendedIds);
-        const recommendedDishes = food.filter(dish => recommendedIds.includes(dish.id)); 
+        const recommendedDishes = food.filter(dish => recommendedIds.includes(dish.id));
         console.log(recommendedDishes);
-        return dispatch(setDefineDishRecomendation({dish:recommendedDishes}))
+        dispatch(setDefineDishRecomendation({ dish: recommendedDishes }))
       }
-      dispatch(setDefineDishRecomendation({dish:[]}))
-    }else { 
-      dispatch(getDefineDish({id:params.id}))
-    } 
-
-  },[dispatch,food,params])
-
+    } else {
+      dispatch(getDefineDish({ id: params.id }))
+    }
+  }, [])
+  console.log(defineDish);
   return (
-    <> 
-    
-    <div> 
-      {defineDish?.title} 
-      {defineDish?.subtitle} 
-      {defineDish?.price} 
-    rec
-      {defineDishRecomendation?.map((item) => <div> 
-        {item?.title}
-        </div>)}
-    </div>
-    
+    <>
+    <div className={s.define}> 
+
+      <div className={s.define__container}>
+        <div className={s.define__side}>
+          <div className={s.define__back}>
+            <img src={a} alt="" />
+            Назад к выбору блюд
+          </div> 
+          <div className={s.define__img}>
+            <img src={defineDish?.photoURLs[0]} alt="" />
+          </div> 
+          <div className={s.define__text}> 
+            <div className={s.define__title}>{defineDish?.title}</div>
+            <div className={s.define__subtitle}>{defineDish?.description}</div>
+            <div className={s.define__price}>{defineDish?.price} с</div>
+          </div>
+        </div>
+
+        <div className={s.define__rec}>
+          <div className={s.rec__title}> 
+          Дополнительно к "{defineDish?.title}" берут
+          </div> 
+          <div className={s.rec__list}> 
+            {defineDishRecomendation.map((item,index) => <Categories item={item} key={index}/>)}
+            {defineDishRecomendation.map((item,index) => <Categories item={item} key={index}/>)}
+          </div>
+        </div>
+      </div>
+      </div>
+
     </>
   )
 }

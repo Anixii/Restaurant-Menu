@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
 
 .card {
-    width: 18%;
+    width: 31%;
     border-radius: 11px;
     background: #FFF;
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.05);
     /* margin-left: 22px; */
-    height: 22rem;
+    min-height: 20rem; 
+    max-height: 35rem; 
+    box-sizing: border-box;
 }
 
 .card:first-child {
@@ -21,7 +23,7 @@
 }
 .card__text{   
     width: 100%;
-    padding: 0px 14px 10px 14px; 
+    padding: 0px 8px 10px 8px; 
     height: 48%;
     padding-top: 0.5%; 
     display: flex; 
@@ -60,7 +62,7 @@
 .card__price {
     color: #000;
     font-family: 'Nunito',sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -68,7 +70,8 @@
 
 @media screen and (max-width:1140px) {
     .card {
-        width: 23%;
+        width: 31%;  
+        min-height: 23.4rem;
     } 
     .card__text{   
         width: 100%;
@@ -81,102 +84,7 @@
         height: 52%;
     } 
     .card__title {
-        font-size: 17px;
-    }
-    
-    .card__subtitle {
-        font-size: 15px;
-    }
-    
-    .card__price {
-        font-size: 19px;
-    } 
-    
-}
-@media screen and (max-width:1065px) {
-    .card {
-        width: 31%;
-    } 
-    .card__text{   
-        width: 100%;
-        padding: 0px 14px 10px 14px; 
-        height: 40%;
-        padding-top: 0.5%; 
-    }
-    .card__img { 
-        position: relative;
-        height: 60%;
-    }  
-    .card__title {
-        font-size: 18px;
-    }
-    
-    .card__subtitle {
-        font-size: 15px;
-    }
-    
-    .card__price {
-        font-size: 19px;
-    } 
-    
-}
-@media screen and (max-width:813px) {
-    .card {
-        width: 30%;
-    } 
-    .card__text{   
-        width: 100%;
-        padding: 0px 14px 10px 14px; 
-        height: 40%;
-        padding-top: 0.5%; 
-    }
-    .card__img { 
-        position: relative;
-        height: 60%;
-    }  
-    .card__title {
-        font-size: 17px;
-    }
-    
-    .card__subtitle {
-        font-size: 14.5px;
-    }
-    
-    .card__price {
-        font-size: 17px;
-    } 
-    
-}
-@media screen and (max-width:575px) {
-    .card {
-        width: 47%;
-    } 
-    .card__text{   
-        width: 100%;
-        padding: 0px 14px 10px 14px; 
-        height: 40%;
-        padding-top: 0.5%; 
-    }
-    .card__img { 
-        position: relative;
-        height: 60%;
-    }  
-    .card__title {
-        font-size: 18px;
-    }
-    
-    .card__subtitle {
-        font-size: 15px;
-    }
-    
-    .card__price {
-        font-size: 17px;
-    } 
-    
-} 
-@media screen and (min-height: 1000px) {
-    .card__title {
-        font-size: 20px;
+        font-size: 16.5px;
     }
     
     .card__subtitle {
@@ -186,4 +94,30 @@
     .card__price {
         font-size: 18px;
     } 
+    
+}
+@media screen and (max-width:1065px) {
+    .card {
+        width: 31%; 
+        
+        min-height: 26rem; 
+        
+    } 
+    
+}
+@media screen and (max-width:990px) {
+    .card {
+        width: 46%; 
+    }  
+    .card__title {
+        font-size: 18.5px;
+    }
+    
+    .card__subtitle {
+        font-size: 16px;
+    }
+    
+    .card__price {
+        font-size: 19px;
+    }
 }

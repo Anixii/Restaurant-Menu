@@ -1,7 +1,7 @@
 import React from 'react'
-import s from './Categories.module.css'
+import s from './RecCategory.module.css'
 import { useNavigate } from 'react-router-dom'
-const CofeCategories = ({item}) => { 
+const Categories = ({item}) => { 
   const nav = useNavigate()
   const onHandleClick = (id) => {  
     nav(`/menu/${id}`)
@@ -26,4 +26,4 @@ const CofeCategories = ({item}) => {
   )
 }
 
-export default CofeCategories
+export default Categories

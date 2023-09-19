@@ -1,1 +1,105 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+
+.define{ 
+    padding: 0 2.7%;
+}
+.define__container { 
+    padding: 4% 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.define__side {
+    width: 40%;
+}
+
+.define__rec {
+    width: 55%;
+}
+
+.rec__list { 
+    margin-top: 1.8vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; 
+    gap: 1.1rem
+}
+
+.rec__list::after {
+    content: '';
+    flex-grow: 1;
+}
+
+.define__back {
+    display: flex;
+    align-items: center;
+    color: #000;
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.define__back img {
+    margin-right: 10px;
+}
+
+.define__img {
+    height: 21rem;
+}
+
+.define__img img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+.define__text{ 
+    margin-top: 2vh;
+}
+.define__title {
+    color: #000;
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.define__subtitle { 
+    margin-top: 1.1vh;
+    color: #A5A5A5;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.define__price { 
+    margin-top: 4.5vh;
+
+    color: #000;
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+.rec__title { 
+    color: #000;
+font-family: 'Nunito',sans-serif;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+} 
+
+@media screen and (max-width:990px) {
+    .rec__list::after {
+        content: none;
+    }
+}

@@ -71,7 +71,7 @@ export const getAllDishes = createAsyncThunk(
 const getPhotoByDishID = createAsyncThunk(
     'menu/getPhotoByDishID', 
     async({id}) =>{ 
-        try{ 
+        try{  
             const query = doc(menuCollection, id) 
             const querySnapshot = await getDoc(query)  
             const collectionRef = ref(storage, querySnapshot.data().id)
@@ -82,43 +82,48 @@ const getPhotoByDishID = createAsyncThunk(
                     return downloadURL
                   })
                 ) 
-            const data = {...querySnapshot.data(), fileURLs}
+            const data = {...querySnapshot.data(), photoURLs: fileURLs}
             return data 
         }catch(error){ 
 
         }
     }
  )
-export const getDefineDish = createAsyncThunk( 
+ export const getDefineDish = createAsyncThunk( 
     'menu/getDefineDish', 
-    async ({id},{dispatch}) =>{  
+    async ({ id }, { dispatch }) => {  
         try {
-            const query = doc(menuCollection, id) 
-            const querySnapshot = await getDoc(query)  
-            const collectionRef = ref(storage, querySnapshot.data().id)
-            const files = await listAll(collectionRef)
+            const query = doc(menuCollection, id);
+            const querySnapshot = await getDoc(query);
+            const collectionRef = ref(storage, querySnapshot.data().id);
+            const files = await listAll(collectionRef);
             const fileURLs = await Promise.all(
                 files.items.map(async (fileRef) => {
-                    const downloadURL = await getDownloadURL(fileRef)
-                    return downloadURL
-                  })
-                ) 
-            const data = {...querySnapshot.data(), fileURLs} 
-
-            dispatch(setDefineDish({dish: data}))      
-            
-            if(data.recomendation.length !== 0){ 
-                const recomendation = data.recomendation.map((item) => {
-                return dispatch(getPhotoByDishID({ id: item.value }))
+                    const downloadURL = await getDownloadURL(fileRef);
+                    return downloadURL;
                 })
-            await Promise.all(recomendation); 
-                  dispatch(setDefineDishRecomendation({dish: recomendation}))
+            );
+
+            const data = { ...querySnapshot.data(), photoURLs:fileURLs }; 
+
+            dispatch(setDefineDish({ dish: data }));      
+
+            if (data.recomendation.length !== 0) {  
+                const recomendationPromises = data.recomendation.map((item) => {
+                    return dispatch(getPhotoByDishID({ id: item.value }));
+                });
+
+                const recomendationResults = await Promise.all(recomendationPromises);   
+                console.log(recomendationResults); 
+                const res = recomendationResults.map((item) => {
+                    return {...item.payload, id: item.meta.arg.id} })
+                dispatch(setDefineDishRecomendation({ dish: res }));
             }
         } catch (error) {
             console.log(error);
         }
     }
-) 
+);
 
 export const uploadDishPhotos = createAsyncThunk(
     'menu/uploadDishPhotos',  
@@ -148,7 +153,8 @@ const menuSlice = createSlice({
         setDishes(state,action) {
             state.food = action.payload.dish
         }, 
-        setDefineDish(state,action){ 
+        setDefineDish(state,action){  
+            console.log('hello');
             state.defineDish = action.payload.dish
         }, 
         setDefineDishRecomendation(state,action){ 

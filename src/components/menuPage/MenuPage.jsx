@@ -54,14 +54,14 @@ const MenuPage = () => {
     <div className={s.menu__title}>Кофе</div> 
     <div className={s.menu__list}> 
     {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    {/* {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
     {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
     {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
     {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
     {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
     {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
     {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)}  */}
     
     </div>
     </div>
