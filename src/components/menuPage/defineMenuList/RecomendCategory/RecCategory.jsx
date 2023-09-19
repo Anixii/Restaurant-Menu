@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 const Categories = ({item}) => { 
   const nav = useNavigate()
   const onHandleClick = (id) => {  
-    nav(`/menu/${id}`)
+   return nav(`/menu/${id}`)
   }
   return (
     <>

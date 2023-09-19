@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDefineDish, setDefineDish, setDefineDishRecomendation } from '../../../store/menuSlice'
@@ -6,12 +6,15 @@ import s from './DefineMenu.module.css'
 import a from '../../../assets/img/arrow.svg'
 import CofeCategories from '../Categories/Categories'
 import Categories from './RecomendCategory/RecCategory'
+import { Spin } from 'antd'
 const DefineMenu = () => {
   const dispatch = useDispatch()
   const params = useParams()
   console.log('reee');
-  const { food, defineDish, defineDishRecomendation } = useSelector(state => state.menu)
-  useEffect(() => {
+  const { food, defineDish, defineDishRecomendation } = useSelector(state => state.menu) 
+  const [isFetch, setFetch] = useState(false)
+  useEffect(() => { 
+    setFetch(true)
     if (food.length !== 0) {
       const dishes = food.filter((item) => item.id === params.id)
       dispatch(setDefineDish({ dish: dishes[0] }))
@@ -27,11 +30,13 @@ const DefineMenu = () => {
       }
     } else {
       dispatch(getDefineDish({ id: params.id }))
-    }
-  }, [])
+    } 
+    setFetch(false)
+  }, [params])
   console.log(defineDish);
   return (
     <>
+    <Spin spinning={isFetch}>
     <div className={s.define}> 
 
       <div className={s.define__container}>
@@ -56,12 +61,11 @@ const DefineMenu = () => {
           </div> 
           <div className={s.rec__list}> 
             {defineDishRecomendation.map((item,index) => <Categories item={item} key={index}/>)}
-            {defineDishRecomendation.map((item,index) => <Categories item={item} key={index}/>)}
           </div>
         </div>
       </div>
       </div>
-
+      </Spin>
     </>
   )
 }

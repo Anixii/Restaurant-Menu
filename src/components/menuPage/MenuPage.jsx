@@ -5,12 +5,13 @@ import Category from './Category'
 import { dishesFilter, recomendationFilter } from '../../helpers/menuHelper'
 import CofeCategories from './Categories/Categories'
 import s from './Menu.module.css'
+import { Spin } from 'antd'
 const MenuPage = () => {
   const dispatch = useDispatch()
   const {food,currentCategory} = useSelector(state => state.menu) 
-
-  useEffect(() =>{ 
-    dispatch(getAllDishes())
+  const [isFetch,setFetch] = useState(false)
+  useEffect(() =>{  
+    dispatch(getAllDishes({FC: setFetch}))
   },[dispatch]) 
   const [hot, sethot] = useState([]) 
   const [cofe, setCofe] = useState([]) 
@@ -30,7 +31,8 @@ const MenuPage = () => {
   },[food]) 
   console.log(currentCategory);
   return ( 
-    <>
+    <> 
+    <Spin spinning={isFetch}>
     <div className={s.main__container}>  
     <Category/>  
     <div className={s.menu__item}> 
@@ -101,7 +103,7 @@ const MenuPage = () => {
     </div>
     }
     </div>
-
+    </Spin>
     </>
   )
 }

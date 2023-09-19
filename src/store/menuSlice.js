@@ -37,7 +37,8 @@ export const createNewDishes = createAsyncThunk(
 )
 export const getAllDishes = createAsyncThunk( 
     'menu/getAllDishes', 
-    async (_,{dispatch}) =>{ 
+    async ({FC = () =>{}},{dispatch}) =>{ 
+        FC(true) 
         try{ 
             const q = query(menuCollection, where('id', '!=', ''))
             const querySnapshot = await getDocs(q)
@@ -62,9 +63,12 @@ export const getAllDishes = createAsyncThunk(
               item.photoURLs = fileURLs
               dataWithPhotos.push(item)
             } 
-            dispatch(setDishes({dish: dataWithPhotos}))
+            dispatch(setDishes({dish: dataWithPhotos})) 
+            
         }catch(error){ 
             console.log(error)
+        }finally{ 
+            FC(false)
         }
     }
 ) 
