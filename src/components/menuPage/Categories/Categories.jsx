@@ -14,7 +14,7 @@ const CofeCategories = ({item}) => {
             <img src={item?.photoURLs[0]} alt="" />
           </div>  
           <div className={s.card__text}> 
-          <div className={s.card__tilte}>{item?.title}</div>
+          <div className={s.card__title}>{item?.title}</div>
           <div className={s.card__subtitle}>{item?.subtitle}</div>
           <div className={s.card__price}>{item?.price} с</div> 
           </div>

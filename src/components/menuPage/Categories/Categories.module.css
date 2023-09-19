@@ -41,16 +41,16 @@
 .card__title {
     color: #000;
     font-family: 'Nunito', sans-serif;
-    font-size: 18px;
+    font-size: 17px;
     font-style: normal;
-    font-weight: 600;
+    font-weight:600;
     line-height: normal;
 }
 
 .card__subtitle {
     color: #A5A5A5;
     font-family: 'Nunito', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -63,4 +63,32 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+} 
+
+@media screen and (max-width:1140px) {
+    .card {
+        width: 23%;
+    } 
+    .card__text{   
+        width: 100%;
+        padding: 0px 14px 10px 14px; 
+        height: 48%;
+        padding-top: 0.5%; 
+    }
+    .card__img { 
+        position: relative;
+        height: 52%;
+    } 
+    .card__title {
+        font-size: 17px;
+    }
+    
+    .card__subtitle {
+        font-size: 14px;
+    }
+    
+    .card__price {
+        font-size: 19px;
+    } 
+    
 }
