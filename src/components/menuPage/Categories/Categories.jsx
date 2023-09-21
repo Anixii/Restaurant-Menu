@@ -12,7 +12,7 @@ const CofeCategories =forwardRef( ({item,setScroll,...props},ref) => {
   }
   return (
     <>
-      <div className={s.card} ref={ref} onClick={() => onHandleClick(item.id)}> 
+      <motion.div whileHover={{cursor:'pointer', scale:0.9}} whileTap={{scale:1.1}} className={s.card} ref={ref} onClick={() => onHandleClick(item.id)}> 
         <div className={s.card__container}> 
           <div  className={s.card__img}>
             <img src={item?.photoURLs[0]} alt="" />
@@ -25,7 +25,7 @@ const CofeCategories =forwardRef( ({item,setScroll,...props},ref) => {
           <div className={s.card__price}>{item?.price} с</div> 
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   )
 })

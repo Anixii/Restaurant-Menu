@@ -59,7 +59,7 @@ const DefineMenu = () => {
       <motion.div layout variants={variants} className={s.define__container}> 
       
         <motion.div className={s.define__side}>
-          <motion.div  animate={'visible'} custom={0} initial={'hidden'} variants={variants} className={s.define__back} onClick={onHandleBack}>
+          <motion.div whileTap={{scale:0.95}} animate={'visible'} custom={0} initial={'hidden'} variants={variants} className={s.define__back} onClick={onHandleBack}>
             <img src={a} alt="" />
             Назад к выбору блюд
           </motion.div> 
