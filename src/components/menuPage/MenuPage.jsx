@@ -5,14 +5,33 @@ import Category from './Category'
 import { dishesFilter, recomendationFilter } from '../../helpers/menuHelper'
 import CofeCategories from './Categories/Categories'
 import s from './Menu.module.css'
-import { Spin } from 'antd'
+import { Spin } from 'antd' 
+import { AnimatePresence } from 'framer-motion'
+
+const variants = {
+  visible: i => ({
+    opacity: 1, 
+    x:0,
+    transition: {
+      delay: i * 0.2,
+    },
+  }),
+  hidden: { opacity: 0,x:-100, },
+}
 const MenuPage = () => {
   const dispatch = useDispatch()
-  const {food,currentCategory} = useSelector(state => state.menu) 
-  const [isFetch,setFetch] = useState(false)
-  useEffect(() =>{  
-    dispatch(getAllDishes({FC: setFetch}))
-  },[dispatch]) 
+  const {food,currentCategory,} = useSelector(state => state.menu) 
+  const [isFetch,setFetch] = useState(false) 
+  const [scroll, setScroll] = useState(0)
+  useEffect(() => { 
+    window.scrollTo(0, scroll); 
+  }, [scroll])
+
+  useEffect(() =>{   
+    if(food.length === 0){ 
+      dispatch(getAllDishes({FC: setFetch}))
+    }
+  },[dispatch,food]) 
   const [hot, sethot] = useState([]) 
   const [cofe, setCofe] = useState([]) 
   const [bake, setBake] = useState([])
@@ -28,18 +47,21 @@ const MenuPage = () => {
     setchild(dishesFilter(food, 'Для детей'))
     setSteak(dishesFilter(food, 'Стейки')) 
     setRecomend(recomendationFilter(food))
-  },[food]) 
-  console.log(currentCategory);
+  },[food])  
+  if(isFetch){ 
+    return <div>Load..</div>
+  }
   return ( 
     <> 
     <Spin spinning={isFetch}>
     <div className={s.main__container}>  
-    <Category/>  
+    <Category/>   
     <div className={s.menu__item}> 
       <div className={s.menu__title}>Рекомендуем попробовать</div> 
-      <div className={s.menu__list}> 
-      {recomendation.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-       
+      <div className={s.menu__list}>  
+      <AnimatePresence > 
+    {recomendation.map((item,index) => <CofeCategories  whileInView={'visible'} viewport={{once:true,amount:0.2}} variants={variants} custom={index} initial={'hidden'} exit={'hidden'} setScroll={setScroll} key={index + item.id} item={item}/>)} 
+    </AnimatePresence>
       </div> 
     </div> 
 
@@ -47,24 +69,19 @@ const MenuPage = () => {
     <div className={s.menu__item}>  
     <div className={s.menu__title}>Горячее</div> 
     <div className={s.menu__list}> 
-    {hot.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    <AnimatePresence > 
+    {hot.map((item,index) => <CofeCategories  whileInView={'visible'} viewport={{once:true,amount:0.2}} variants={variants} custom={index} initial={'hidden'} exit={'hidden'} setScroll={setScroll} key={index + item.id} item={item}/>)} 
+    </AnimatePresence>
     </div>
     </div>}
 
     {(currentCategory === 'Все' || currentCategory === 'Кофе')&& cofe.length !== 0  && 
     <div className={s.menu__item}>
     <div className={s.menu__title}>Кофе</div> 
-    <div className={s.menu__list}> 
-    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    {/* {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    {cofe.map((item,index) => <CofeCategories key={index} item={item}/>)}  */}
-    
+    <div className={s.menu__list}>  
+    <AnimatePresence > 
+    {cofe.map((item,index) => <CofeCategories  whileInView={'visible'} viewport={{once:true,amount:0.2}} variants={variants} custom={index} initial={'hidden'} exit={'hidden'} setScroll={setScroll} key={index + item.id} item={item}/>)} 
+    </AnimatePresence>
     </div>
     </div>
     }
@@ -73,16 +90,19 @@ const MenuPage = () => {
     <div className={s.menu__item}>  
     <div className={s.menu__title}>Выпечка</div>
     <div className={s.menu__list}> 
-    {bake.map((item,index) => <CofeCategories key={index} item={item}/>) } 
+    <AnimatePresence > 
+    {bake.map((item,index) => <CofeCategories  whileInView={'visible'} viewport={{once:true,amount:0.2}} variants={variants} custom={index} initial={'hidden'} exit={'hidden'} setScroll={setScroll} key={index + item.id} item={item}/>)} 
+    </AnimatePresence>
     </div>
     </div>} 
-
-
+   
     {(currentCategory === 'Все' || currentCategory === 'Салаты')&& salat.length !== 0  &&
     <div className={s.menu__item}> 
     <div className={s.menu__title}>Салаты</div>
     <div className={s.menu__list}> 
-    {salat.map((item,index) => <CofeCategories key={index} item={item}/>)} 
+    <AnimatePresence > 
+    {salat.map((item,index) => <CofeCategories  whileInView={'visible'} viewport={{once:true,amount:0.2}} variants={variants} custom={index} initial={'hidden'} exit={'hidden'} setScroll={setScroll} key={index + item.id} item={item}/>)} 
+    </AnimatePresence>
     </div>
     </div>  
     }
@@ -91,17 +111,19 @@ const MenuPage = () => {
     <div className={s.menu__item}> 
     <div className={s.menu__title}>Для детей</div> 
     <div className={s.menu__list}> 
-    {child.map((item,index) => <CofeCategories key={index} item={item}/>)} 
-    </div> 
+    <AnimatePresence > 
+    {child.map((item,index) => <CofeCategories  whileInView={'visible'} viewport={{once:true,amount:0.2}} variants={variants} custom={index} initial={'hidden'} exit={'hidden'} setScroll={setScroll} key={index + item.id} item={item}/>)} 
+    </AnimatePresence>    </div> 
     </div>}
 
     {(currentCategory === 'Все' || currentCategory === 'Стейки')&& steak.length !== 0  && <div className={s.menu__item}> 
     <div className={s.menu__title}>Стейки</div>
     <div className={s.menu__list}> 
-    {steak.map((item,index) => <CofeCategories key={index} item={item}/>)}
-    </div>  
+    <AnimatePresence > 
+    {steak.map((item,index) => <CofeCategories  whileInView={'visible'} viewport={{once:true,amount:0.2}} variants={variants} custom={index} initial={'hidden'} exit={'hidden'} setScroll={setScroll} key={index + item.id} item={item}/>)} 
+    </AnimatePresence>    </div>  
     </div>
-    }
+    } 
     </div>
     </Spin>
     </>

@@ -10,7 +10,8 @@ const initialState = {
     food: [], 
     defineDish: null, 
     defineDishRecomendation: [], 
-    currentCategory: 'Все',
+    currentCategory: 'Все', 
+    scrollPosition: 0,
 } 
 export const createNewDishes = createAsyncThunk( 
     'menu/createDish', 
@@ -64,12 +65,13 @@ export const getAllDishes = createAsyncThunk(
               dataWithPhotos.push(item)
             } 
             dispatch(setDishes({dish: dataWithPhotos})) 
-            
         }catch(error){ 
             console.log(error)
         }finally{ 
             FC(false)
         }
+        FC(false)
+
     }
 ) 
 const getPhotoByDishID = createAsyncThunk(
@@ -166,8 +168,11 @@ const menuSlice = createSlice({
         }, 
         setCategory(state,action) {
             state.currentCategory = action.payload.category
+        }, 
+        setScrollPosition(state, action){ 
+            state.scrollPosition = action.payload.position
         }
     }
 }) 
-export const {setDishes,setDefineDish,setDefineDishRecomendation,setCategory} = menuSlice.actions 
+export const {setDishes,setDefineDish,setDefineDishRecomendation,setCategory,setScrollPosition} = menuSlice.actions 
 export default menuSlice.reducer

@@ -6,7 +6,11 @@
     color: black; 
     text-decoration: none;
 } 
-.main__container { 
+body{
+     height: 100%;
+}
+.main__container {  
+    height: 100%;
     padding: 0 2.2%;
 }  
 .menu__item{ 

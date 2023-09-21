@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import s from './Categories.module.css'
 import { useNavigate } from 'react-router-dom'
-const CofeCategories = ({item}) => { 
-  const nav = useNavigate()
-  const onHandleClick = (id) => {  
+import { useDispatch } from 'react-redux'
+import { setScrollPosition } from '../../../store/menuSlice'
+import { motion } from 'framer-motion'
+const CofeCategories =forwardRef( ({item,setScroll,...props},ref) => { 
+  const nav = useNavigate()  
+  console.log(props);
+  const dispatch = useDispatch()
+  const onHandleClick = (id) => {   
+    setScroll(window.scrollY)  
     nav(`/menu/${id}`)
   }
   return (
     <>
-      <div className={s.card} onClick={() => onHandleClick(item.id)}> 
+      <div className={s.card} ref={ref} onClick={() => onHandleClick(item.id)}> 
         <div className={s.card__container}> 
           <div  className={s.card__img}>
             <img src={item?.photoURLs[0]} alt="" />
@@ -24,6 +30,5 @@ const CofeCategories = ({item}) => {
       </div>
     </>
   )
-}
-
-export default CofeCategories
+})
+export default motion(CofeCategories)
