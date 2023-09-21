@@ -7,6 +7,7 @@ import CofeCategories from './Categories/Categories'
 import s from './Menu.module.css'
 import { Spin } from 'antd' 
 import { AnimatePresence } from 'framer-motion'
+import { Preloader } from '../Preloader/Preloader'
 
 const variants = {
   visible: i => ({
@@ -49,7 +50,7 @@ const MenuPage = () => {
     setRecomend(recomendationFilter(food))
   },[food])  
   if(isFetch){ 
-    return <div>Load..</div>
+    return <Preloader/>
   }
   return ( 
     <> 

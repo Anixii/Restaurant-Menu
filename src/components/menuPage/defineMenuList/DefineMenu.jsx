@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDefineDish, setDefineDish, setDefineDishRecomendation } from '../../../store/menuSlice'
 import s from './DefineMenu.module.css' 
 import a from '../../../assets/img/arrow.svg'
-import CofeCategories from '../Categories/Categories'
 import Categories from './RecomendCategory/RecCategory'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Spin } from 'antd' 
+import { Preloader } from '../../Preloader/Preloader'
 const variants = {
   visible: i => ({
     opacity: 1, 
@@ -21,45 +20,43 @@ const variants = {
 const DefineMenu = () => {
   const dispatch = useDispatch()
   const params = useParams()
-  console.log('reee');
   const { food, defineDish, defineDishRecomendation } = useSelector(state => state.menu) 
   const [isFetch, setFetch] = useState(false)
-  useEffect(() => { 
-    setFetch(true)
+  useEffect(() => {  
+    console.log('rerender');
     if (food.length !== 0) {
       const dishes = food.filter((item) => item.id === params.id)
       dispatch(setDefineDish({ dish: dishes[0] }))
       if (dishes[0].recomendation.length === 0) {
         dispatch(setDefineDishRecomendation({ dish: [] }))
       }else{ 
-
         const recommendedIds = dishes[0].recomendation.map(recommendation => recommendation.value);
-        console.log(recommendedIds);
         const recommendedDishes = food.filter(dish => recommendedIds.includes(dish.id));
         console.log(recommendedDishes);
         dispatch(setDefineDishRecomendation({ dish: recommendedDishes }))
       }
     } else {
-      dispatch(getDefineDish({ id: params.id }))
+      dispatch(getDefineDish({ id: params.id,FC:setFetch }))
     } 
-    setFetch(false)
-  }, [params]) 
+  }, [params,food]) 
   const nav = useNavigate()
+  if(isFetch){ 
+    return <Preloader/>
+  }
   const onHandleBack = () =>{  
     nav('/menu')
-  }
-  console.log(defineDish);
+  } 
   return (
-    <>
-    <Spin spinning={isFetch}>
+    <> 
+    <AnimatePresence >
     <motion.div   
-      layout
+      layoutRoot 
+      key={params.id}
       initial={{x:100,opacity:0}} 
       animate={{x:0, opacity:1}} 
-      exit={{x:100, opacity:0}}
     className={s.define}> 
 
-      <motion.div variants={variants} className={s.define__container}> 
+      <motion.div layout variants={variants} className={s.define__container}> 
       
         <motion.div className={s.define__side}>
           <motion.div  animate={'visible'} custom={0} initial={'hidden'} variants={variants} className={s.define__back} onClick={onHandleBack}>
@@ -81,14 +78,14 @@ const DefineMenu = () => {
           Дополнительно к "{defineDish?.title}" берут
           </motion.div> 
           <motion.div className={s.rec__list}>  
-          <AnimatePresence> 
+
             {defineDishRecomendation.map((item,index) => <Categories variants={variants} custom={index+1} initial={'hidden'} animate={'visible'} item={item} key={index}/>)}
-          </AnimatePresence>
+
           </motion.div>
         </motion.div>
       </motion.div>
-      </motion.div>
-      </Spin>
+      </motion.div> 
+      </AnimatePresence>
     </>
   )
 }

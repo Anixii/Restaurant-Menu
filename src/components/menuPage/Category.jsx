@@ -7,7 +7,6 @@ const Category = () => {
     const {currentCategory} = useSelector(state => state.menu) 
     const dispatch = useDispatch()
     const onHandleChangeCategory = (e) =>{ 
-        console.log(e); 
         dispatch(setCategory({category: e}))        
     }
     return (

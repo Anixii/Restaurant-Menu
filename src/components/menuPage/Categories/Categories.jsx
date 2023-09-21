@@ -6,8 +6,6 @@ import { setScrollPosition } from '../../../store/menuSlice'
 import { motion } from 'framer-motion'
 const CofeCategories =forwardRef( ({item,setScroll,...props},ref) => { 
   const nav = useNavigate()  
-  console.log(props);
-  const dispatch = useDispatch()
   const onHandleClick = (id) => {   
     setScroll(window.scrollY)  
     nav(`/menu/${id}`)

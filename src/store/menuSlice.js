@@ -97,7 +97,8 @@ const getPhotoByDishID = createAsyncThunk(
  )
  export const getDefineDish = createAsyncThunk( 
     'menu/getDefineDish', 
-    async ({ id }, { dispatch }) => {  
+    async ({ id,FC= ()=>{} }, { dispatch }) => {  
+        FC(true)
         try {
             const query = doc(menuCollection, id);
             const querySnapshot = await getDoc(query);
@@ -127,7 +128,10 @@ const getPhotoByDishID = createAsyncThunk(
             }
         } catch (error) {
             console.log(error);
+        }finally{
+            FC(false)
         }
+        FC(false)
     }
 );
 
