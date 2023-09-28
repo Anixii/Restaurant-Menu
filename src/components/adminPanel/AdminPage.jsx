@@ -93,7 +93,7 @@ const AdminPage = () => {
                         <div className={s.form__item}>
                             <div className={s.form__title}>Пиктограммы</div>
                             <div className={s.form__radio}>
-                                <label className={s.form__radio_label}>
+                                {/* <label className={s.form__radio_label}>
                                     <input type="radio" value={'Новинка'} id='Новинка' name="Новинка" {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
                                     })} />
@@ -104,7 +104,7 @@ const AdminPage = () => {
                                     <input type="radio" name="Скидка" value={'Скидка'} id='Скидка' {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
                                     })} />
-                                    Скидка</label>
+                                    Скидка</label> */}
                                 <label className={s.form__radio_label}>
                                     <input type="radio" value={'Горячее'} id='Горячее' name="Горячее" {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
@@ -136,7 +136,7 @@ const AdminPage = () => {
                                     Для детей
                                 </label>
                                 <label className={s.form__radio_label}>
-                                    <input type="radio" value={'steak'} id='steak' name="steak" {...register('pictogram',{ 
+                                    <input type="radio" value={'Стейк'} id='Стейк' name="Стейк" {...register('pictogram',{ 
                                         required: 'Это поле обязательное!'
                                     })} />
                                     Стейки
